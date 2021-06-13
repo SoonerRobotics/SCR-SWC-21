@@ -11,24 +11,25 @@ using Newtonsoft.Json;
 
 namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
 {
-    public class Control : Message
+    public class WheelVels : Message
     {
         [JsonIgnore]
-        public const string RosMessageName = "swc_msgs/Control";
+        public const string RosMessageName = "swc_msgs/WheelVels";
 
-        public float speed;
-        public float turn_angle;
+        //  Target robot wheel speeds (m/s)
+        public float left;
+        public float right;
 
-        public Control()
+        public WheelVels()
         {
-            this.speed = 0.0f;
-            this.turn_angle = 0.0f;
+            this.left = 0.0f;
+            this.right = 0.0f;
         }
 
-        public Control(float speed, float turn_angle)
+        public WheelVels(float left, float right)
         {
-            this.speed = speed;
-            this.turn_angle = turn_angle;
+            this.left = left;
+            this.right = right;
         }
     }
 }

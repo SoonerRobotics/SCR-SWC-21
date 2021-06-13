@@ -11,21 +11,21 @@ using Newtonsoft.Json;
 
 namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
 {
-    public class Gps : Message
+    public class GPS : Message
     {
         [JsonIgnore]
-        public const string RosMessageName = "swc_msgs/Gps";
+        public const string RosMessageName = "swc_msgs/GPS";
 
         public double latitude;
         public double longitude;
 
-        public Gps()
+        public GPS()
         {
-            this.latitude = 0.0f;
-            this.longitude = 0.0f;
+            this.latitude = 0.0;
+            this.longitude = 0.0;
         }
 
-        public Gps(double latitude, double longitude)
+        public GPS(double latitude, double longitude)
         {
             this.latitude = latitude;
             this.longitude = longitude;

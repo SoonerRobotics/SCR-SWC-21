@@ -2,7 +2,7 @@
 
 namespace RosSharp.RosBridgeClient.MessageTypes.Sensor
 {
-    [RequireComponent(typeof(AckermannController))]
+    [RequireComponent(typeof(DifferentialControl))]
     public class IMUPublisher : UnityPublisher<Imu>
     {
         private Imu message;
@@ -11,7 +11,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.Sensor
         private float orientationNoiseStdDev = 0.017f;
         private float angularVelocityNoiseStdDev = 0.017f;
 
-        private AckermannController c;
+        private DifferentialControl c;
 
         private float previousScanTime = 0;
         private float updatePeriod = 0.1f;
@@ -19,7 +19,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.Sensor
         protected override void Start()
         {
             base.Start();
-            c = GetComponent<AckermannController>();
+            c = GetComponent<DifferentialControl>();
             message = new Imu();
 
             switch (ConfigLoader.competition.NoiseLevel) {

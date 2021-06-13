@@ -63,7 +63,7 @@ public class FieldBuilder : MonoBehaviour
         }
 
         if (ConfigLoader.competition.Obstacles == ConfigLoader.CompetitionConfig.ObstacleTypes.normal) {
-            density /= 3.0f;
+            density /= 2.0f;
         }
 
         width = (int)(width / spread);

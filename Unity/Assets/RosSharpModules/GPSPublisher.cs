@@ -2,9 +2,9 @@
 
 namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
 {
-    public class GPSPublisher : UnityPublisher<Gps>
+    public class GPSPublisher : UnityPublisher<GPS>
     {
-        private Gps message;
+        private GPS message;
 
         private float latNoiseStdDev = 1.843f;
         private float lonNoiseStdDev = 2.138f;
@@ -20,7 +20,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
         protected override void Start()
         {
             base.Start();
-            message = new Gps();
+            message = new GPS();
 
             switch (ConfigLoader.competition.NoiseLevel) {
                 case ConfigLoader.CompetitionConfig.NoiseLevels.none:

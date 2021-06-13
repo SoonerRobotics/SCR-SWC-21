@@ -31,10 +31,10 @@ namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
             response = new WaypointsResponse();            
             Vector2[] waypoints_raw = GameManager.instance.GetWaypoints();
 
-            response.waypoints = new Gps[waypoints_raw.Length];
+            response.waypoints = new GPS[waypoints_raw.Length];
             
             for (int i=0 ;i<waypoints_raw.Length; i++) {
-                Gps pt = new Gps();
+                GPS pt = new GPS();
                 pt.latitude = (waypoints_raw[i].x) / 110944.33 + 35.205853f;
                 pt.longitude = (waypoints_raw[i].y) / 91058.93 + -97.442325f;
                 response.waypoints[i] = pt;

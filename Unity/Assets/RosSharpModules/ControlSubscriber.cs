@@ -3,15 +3,14 @@ using UnityEngine;
 
 namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
 {
-    [RequireComponent(typeof(AckermannController))]
-    public class ControlSubscriber : UnitySubscriber<Control>
+    [RequireComponent(typeof(DifferentialControl))]
+    public class ControlSubscriber : UnitySubscriber<WheelVels>
     {
-        private AckermannController car;
+        private DifferentialControl car;
 
-        private Control lastMessage;
+        private WheelVels lastMessage;
 
-        private float angleNoiseStdDev = 0.4f;
-        private float powerNoiseStdDev = 0.1f;
+        private float linearVelStdDev = 0.1f;
 
         private bool firstMessage = true;
         private bool begingame = false;
@@ -21,8 +20,8 @@ namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
         protected override void Start()
         {
             base.Start();
-            car = GetComponent<AckermannController>();
-            lastMessage = new Control();
+            car = GetComponent<DifferentialControl>();
+            lastMessage = new WheelVels();
             startTime = Time.realtimeSinceStartup;
 
             if (ConfigLoader.simulator.ManualControl) {
@@ -31,12 +30,10 @@ namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
 
             switch (ConfigLoader.competition.NoiseLevel) {
                 case ConfigLoader.CompetitionConfig.NoiseLevels.none:
-                    angleNoiseStdDev *= 0;
-                    powerNoiseStdDev *= 0;
+                    linearVelStdDev *= 0;
                     break;
                 case ConfigLoader.CompetitionConfig.NoiseLevels.reduced:
-                    angleNoiseStdDev *= 0.5f;
-                    powerNoiseStdDev *= 0.5f;
+                    linearVelStdDev *= 0.5f;
                     break;
             }
 
@@ -50,7 +47,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
 
         private void FixedUpdate() {
             if (newMessage) {
-                car.SetControl(lastMessage.speed + SimUtils.getRandNormal(0, powerNoiseStdDev), lastMessage.turn_angle + SimUtils.getRandNormal(0, angleNoiseStdDev));
+                car.SetControl(lastMessage.left + SimUtils.getRandNormal(0, linearVelStdDev), lastMessage.right + SimUtils.getRandNormal(0, linearVelStdDev));
                 newMessage = false;
             }
 
@@ -65,7 +62,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
             }
         }
 
-        protected override void ReceiveMessage(Control control)
+        protected override void ReceiveMessage(WheelVels control)
         {
             lastMessage = control;
             newMessage = true;

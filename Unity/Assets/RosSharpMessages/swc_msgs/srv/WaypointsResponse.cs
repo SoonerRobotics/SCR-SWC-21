@@ -9,6 +9,8 @@
 
 using Newtonsoft.Json;
 
+using RosSharp.RosBridgeClient.MessageTypes.swc_msgs;
+
 namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
 {
     public class WaypointsResponse : Message
@@ -16,14 +18,14 @@ namespace RosSharp.RosBridgeClient.MessageTypes.swc_msgs
         [JsonIgnore]
         public const string RosMessageName = "swc_msgs/Waypoints";
 
-        public Gps[] waypoints;
+        public GPS[] waypoints;
 
         public WaypointsResponse()
         {
-            this.waypoints = new Gps[0];
+            this.waypoints = new GPS[0];
         }
 
-        public WaypointsResponse(Gps[] waypoints)
+        public WaypointsResponse(GPS[] waypoints)
         {
             this.waypoints = waypoints;
         }
